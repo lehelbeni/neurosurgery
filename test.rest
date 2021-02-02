@@ -1,0 +1,35 @@
+###
+GET http://localhost:4000/find/beni.lehel
+###
+GET http://localhost:4000/
+###
+GET http://localhost:4000/123
+
+###
+DELETE http://localhost:4000/1
+
+###
+POST http://localhost:4000/add
+content-type: application/json
+
+{
+    "_id":"1",
+    "db":"GLIAL TUMORS",
+    "Nume":"asd",
+    "Prenume":"dsa"
+}
+
+###
+GET http://localhost:4000/intervention/
+
+
+###
+POST http://localhost:4000/intervention/add
+content-type: application/json
+
+{
+    "CNP":"321"
+}
+
+###
+DELETE http://localhost:4000/intervention/6015bf5a62eb3c41ec9e402c

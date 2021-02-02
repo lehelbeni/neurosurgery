@@ -1,0 +1,20 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: rgb(230, 230, 230);
+}
+
+body,
+#root {
+	height: 100vh;
+}
+
+.main-window {
+}
+
+.input-form {
+	padding: 30px;
+}
