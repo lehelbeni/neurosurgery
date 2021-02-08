@@ -15,6 +15,7 @@ import React, { useState, useEffect } from 'react'
 import { DatebaseName } from '../Resources/Datebases'
 import { GetAPI } from '../API/GetAPI'
 import { PatientBox } from '../PatientBox/PatientBox'
+import Pagination from '@material-ui/lab/Pagination'
 
 export const Patients = () => {
 	const [datebaseSelected, setDatebaseSelected] = useState('GLIAL TUMORS')
@@ -25,6 +26,8 @@ export const Patients = () => {
 	})
 	const [prop, setProp] = useState('Date')
 	const [refresh, setRefresh] = useState(false)
+	const [currentPage, setCurrentPage] = useState(1)
+	const [elementsPerPage, setElementsPerPage] = useState(20)
 
 	useEffect(() => {
 		GetData()
@@ -37,6 +40,10 @@ export const Patients = () => {
 
 	function handleChange(e) {
 		setDatebaseSelected(datebase => (datebase = e.target.value))
+	}
+
+	function handlePageChange(event, value) {
+		setCurrentPage(prev => (prev = value))
 	}
 
 	async function GetData() {
@@ -114,9 +121,24 @@ export const Patients = () => {
 				spacing={2}
 				style={{ marginLeft: '1rem', marginRight: '1rem' }}
 			>
-				{patientList.map(el => {
-					return <PatientBox patient={el} setRefresh={setRefresh} />
+				{patientList.map((el, index) => {
+					if (
+						index > (currentPage - 1) * elementsPerPage &&
+						index <= currentPage * elementsPerPage
+					)
+						return <PatientBox patient={el} setRefresh={setRefresh} />
 				})}
+			</Grid>
+			<Grid container justify='center'>
+				<Grid item justify='center'>
+					<Pagination
+						count={Math.ceil(patientList.length / elementsPerPage)}
+						page={currentPage}
+						color='primary'
+						onChange={handlePageChange}
+						style={{ margin: '2rem' }}
+					/>
+				</Grid>
 			</Grid>
 		</Grid>
 	)

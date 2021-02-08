@@ -16,4 +16,5 @@ export const Localisation = [
 	'MEDULLAR',
 	'CEREBELLAR HEMISPHERE',
 	'CEREBELLAR VERMIS',
+	'',
 ]

@@ -9,6 +9,7 @@ export const GlialTumors = [
 	'Anaplatic Oligoasrtocytoma',
 	'Anaplastic Oligodendroglioma',
 	'Glioblastoma',
+	'',
 ]
 
 export const GlialTumorsGrade = {

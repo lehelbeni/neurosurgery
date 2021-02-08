@@ -18,6 +18,9 @@ export const Navigation = () => {
 				<Typography className={classes.menubutton}>
 					<Link to='/interventions'>Interventii</Link>
 				</Typography>
+				<Typography className={classes.menubutton}>
+					<Link to='/statistics'>Statistica</Link>
+				</Typography>
 			</Toolbar>
 		</AppBar>
 	)

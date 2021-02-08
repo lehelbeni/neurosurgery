@@ -7,6 +7,7 @@ import { AddPatient } from './AddPatient/AddPatient'
 import NewEntry from './NewEntry/NewEntry'
 import { Interventions } from './Interventions/Interventions'
 import { Patients } from './Patients/Patients'
+import { Statistics } from './Statistics/Statistics'
 function App() {
 	return (
 		<ThemeProvider theme={theme}>
@@ -16,6 +17,7 @@ function App() {
 					<Route exact path='/' component={NewEntry} />
 					<Route path='/interventions' component={Interventions} />
 					<Route path='/patients' component={Patients} />
+					<Route path='/statistics' component={Statistics} />
 				</div>
 			</Router>
 		</ThemeProvider>

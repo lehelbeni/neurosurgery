@@ -38,7 +38,7 @@ exports.getByPatient = async (req, res) => {
 			$lookup: {
 				from: 'patients',
 				localField: 'CNP',
-				foreignField: '_id',
+				foreignField: 'CNP',
 				as: 'patientsbyintervention',
 			},
 		},
@@ -57,7 +57,6 @@ exports.getByPatient = async (req, res) => {
 			delete re['patientsbyintervention']
 			return re
 		})
-
 		res.json(response)
 	})
 }

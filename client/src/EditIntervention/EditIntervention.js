@@ -28,14 +28,15 @@ export const EditIntervention = ({
 	setInt,
 }) => {
 	const [selectedDate, setSelectedDate] = useState(intervention.Date)
-	const [newIntervention, setNewIntervention] = useState({
-		_id: intervention._id,
-		db: intervention.db,
-		CNP: intervention.CNP,
-		Histopathology: intervention.Histopathology,
-		Date: new Date(intervention.Date),
-		Localisation: intervention.Localisation,
-	})
+	const [newIntervention, setNewIntervention] = useState(intervention)
+	// useState({
+	// 	_id: intervention._id,
+	// 	db: intervention.db,
+	// 	CNP: intervention.CNP,
+	// 	Histopathology: intervention.Histopathology,
+	// 	Date: new Date(intervention.Date),
+	// 	Localisation: intervention.Localisation,
+	// })
 
 	useEffect(() => {
 		setNewIntervention(values => ({ ...values, ['Date']: selectedDate }))
@@ -52,13 +53,13 @@ export const EditIntervention = ({
 	async function handleSubmit(e) {
 		e.preventDefault()
 		console.log('new', newIntervention)
-		setInt(prev => newIntervention)
+		setInt(prev => (prev = newIntervention))
 		const res = PostAPI({
 			pathName: `/intervention/update/${newIntervention._id}`,
 			data: newIntervention,
 		})
 		console.log(res)
-		setRefresh(true)
+		//setRefresh(true)
 		setDone(false)
 	}
 

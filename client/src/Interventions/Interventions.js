@@ -15,6 +15,8 @@ import React, { useState, useEffect } from 'react'
 import { DatebaseName } from '../Resources/Datebases'
 import { GetAPI } from '../API/GetAPI'
 import { PatientsInterventionBox } from '../PatientInterventionBox/PatientsInterventionBox'
+import Pagination from '@material-ui/lab/Pagination'
+import { InterventionHeader } from './InterventionHeader'
 
 export const Interventions = () => {
 	const [datebaseSelected, setDatebaseSelected] = useState('GLIAL TUMORS')
@@ -25,6 +27,8 @@ export const Interventions = () => {
 	})
 	const [prop, setProp] = useState('Date')
 	const [refresh, setRefresh] = useState(false)
+	const [currentPage, setCurrentPage] = useState(1)
+	const [elementsPerPage, setElementsPerPage] = useState(20)
 
 	useEffect(() => {
 		GetData()
@@ -43,6 +47,10 @@ export const Interventions = () => {
 		setDatebaseSelected(datebase => (datebase = e.target.value))
 	}
 
+	function handlePageChange(event, value) {
+		setCurrentPage(prev => (prev = value))
+	}
+
 	async function GetData() {
 		const data = await GetAPI({ pathName: `/intervention/bypat` })
 		const filtered = data.data.filter(el => {
@@ -55,6 +63,7 @@ export const Interventions = () => {
 				return el
 		})
 		const res = orderList(filtered, prop)
+
 		setInterventionList(values => (values = res))
 	}
 
@@ -84,7 +93,6 @@ export const Interventions = () => {
 				return result * sortOrder
 			}
 		}
-
 		return array.sort(dynamicSort(prop))
 	}
 
@@ -160,14 +168,30 @@ export const Interventions = () => {
 				spacing={2}
 				style={{ marginLeft: '1rem', marginRight: '1rem' }}
 			>
-				{interventionList.map(el => {
-					return (
-						<PatientsInterventionBox
-							intervention={el}
-							setRefresh={setRefresh}
-						/>
+				<InterventionHeader />
+				{interventionList.map((el, index) => {
+					if (
+						index > (currentPage - 1) * elementsPerPage &&
+						index <= currentPage * elementsPerPage
 					)
+						return (
+							<PatientsInterventionBox
+								intervention={el}
+								setRefresh={setRefresh}
+							/>
+						)
 				})}
+			</Grid>
+			<Grid container justify='center'>
+				<Grid item justify='center'>
+					<Pagination
+						count={Math.ceil(interventionList.length / elementsPerPage)}
+						page={currentPage}
+						color='primary'
+						onChange={handlePageChange}
+						style={{ margin: '2rem' }}
+					/>
+				</Grid>
 			</Grid>
 		</Grid>
 	)
