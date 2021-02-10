@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { DataSelection } from './DataSelection/DataSelection'
+import { PatientStats } from './PatientsStats/PatientStats'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -24,31 +25,25 @@ function getSteps() {
 	return ['Selecteaza datele dorite', 'Rezultate']
 }
 
-function getStepContent(step) {
-	switch (step) {
-		case 0:
-			return <DataSelection />
-		case 1:
-			return 'What is an ad group anyways?'
-		case 2:
-			return 'This is the bit I really care about!'
-		default:
-			return 'Unknown step'
-	}
-}
-
 export const Statistics = () => {
 	const classes = useStyles()
 	const [activeStep, setActiveStep] = React.useState(0)
 	const [skipped, setSkipped] = React.useState(new Set())
 	const steps = getSteps()
+	const [data, setData] = useState()
 
-	const [filer, setFilter] = useState({
-		db: 'GLIAL TUMORS',
-		start: new Date(1990, 0, 1),
-		end: new Date(),
-	})
-	const [dataSet, setDateSet] = useState([])
+	function getStepContent(step) {
+		switch (step) {
+			case 0:
+				return <DataSelection setNewData={setData} />
+			case 1:
+				return <PatientStats data={data} />
+			case 2:
+				return 'This is the bit I really care about!'
+			default:
+				return 'Unknown step'
+		}
+	}
 
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1)

@@ -23,15 +23,16 @@ import { DeleteAPI } from '../API/DeleteAPI'
 import { DatebaseName } from '../Resources/Datebases'
 
 export const EditPatient = ({ Patient, setRefresh, setDone, setInt }) => {
-	const [newPatient, setNewPatient] = useState({
-		_id: Patient._id,
-		db: Patient.db,
-		CNP: Patient.CNP,
-		Nume: Patient.Nume,
-		Prenume: Patient.Prenume,
-		Sex: Patient.Sex,
-		DataDeNastere: Patient.DataDeNastere,
-	})
+	const [newPatient, setNewPatient] = useState(Patient)
+	// 	{
+	// 	_id: Patient._id,
+	// 	db: Patient.db,
+	// 	CNP: Patient.CNP,
+	// 	Nume: Patient.Nume,
+	// 	Prenume: Patient.Prenume,
+	// 	Sex: Patient.Sex,
+	// 	DataDeNastere: Patient.DataDeNastere,
+	// })
 
 	const handleChange = prop => event => {
 		setNewPatient(values => ({ ...values, [prop]: event.target.value }))
@@ -46,8 +47,8 @@ export const EditPatient = ({ Patient, setRefresh, setDone, setInt }) => {
 			data: newPatient,
 		})
 		console.log(res)
-		setRefresh(true)
 		setDone(false)
+		setInt(newPatient)
 	}
 
 	return (
@@ -60,7 +61,7 @@ export const EditPatient = ({ Patient, setRefresh, setDone, setInt }) => {
 							<Select
 								labelId='datebase-select-label'
 								id='datebase-select'
-								value={Patient.db}
+								value={newPatient.db}
 								onChange={handleChange('db')}
 							>
 								{DatebaseName.map(db => {
@@ -76,21 +77,21 @@ export const EditPatient = ({ Patient, setRefresh, setDone, setInt }) => {
 					<Grid item xs={2}>
 						<TextField
 							label='Nume'
-							value={Patient.Nume}
+							value={newPatient.Nume}
 							onChange={handleChange('Nume')}
 						/>
 					</Grid>
 					<Grid item xs={2}>
 						<TextField
 							label='Prenume'
-							value={Patient.Prenume}
+							value={newPatient.Prenume}
 							onChange={handleChange('Prenume')}
 						/>
 					</Grid>
 					<Grid item xs={3}>
 						<TextField
 							label='CNP'
-							value={Patient.CNP}
+							value={newPatient.CNP}
 							onChange={handleChange('CNP')}
 						/>
 					</Grid>

@@ -1,27 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 
 const header = [
-	{ field: 'id', headerName: 'ID', width: 70 },
-	{ field: 'firstName', headerName: 'First name', width: 130 },
-	{ field: 'lastName', headerName: 'Last name', width: 130 },
-	{
-		field: 'age',
-		headerName: 'Age',
-		type: 'number',
-		width: 90,
-	},
-	{
-		field: 'fullName',
-		headerName: 'Full name',
-		description: 'This column has a value getter and is not sortable.',
-		sortable: false,
-		width: 160,
-		valueGetter: params =>
-			`${params.getValue('firstName') || ''} ${
-				params.getValue('lastName') || ''
-			}`,
-	},
+	{ field: 'id', headerName: 'ID', width: 130 },
+	{ field: 'Nume', headerName: 'First name', width: 130 },
+	{ field: 'Prenume', headerName: 'Last name', width: 130 },
 ]
 
 const rows = [
@@ -38,7 +21,13 @@ const rows = [
 
 export const DataDisplay = ({ data }) => {
 	const [selectedData, setSelectedData] = useState()
-	console.log(data)
+
+	useEffect(() => {
+		console.log(data)
+		const db = data
+		console.log(db)
+	}, [])
+
 	function handleSelectionChange(newSelection) {
 		console.log(newSelection)
 		setSelectedData(prev => (prev = newSelection))
@@ -46,7 +35,7 @@ export const DataDisplay = ({ data }) => {
 
 	return (
 		<DataGrid
-			rows={data}
+			rows={[{ id: 1 }]}
 			columns={header}
 			pageSize={5}
 			checkboxSelection

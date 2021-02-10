@@ -26,22 +26,22 @@ export const PatientBox = ({ patient, setRefresh }) => {
 			<Paper style={{ padding: '0.5rem' }}>
 				<Grid container alignItems='center'>
 					<Grid item xs>
-						{patient.Nume}
+						{newPatient.Nume}
 					</Grid>
 					<Grid item xs>
-						{patient.Prenume}
+						{newPatient.Prenume}
 					</Grid>
 					<Grid item xs>
-						{patient.CNP}
+						{newPatient.CNP}
 					</Grid>
 					<Grid item xs>
-						{patient.DataDeNastere}
+						{newPatient.DataDeNastere}
 					</Grid>
 					<Grid item xs>
-						{patient.Sex}
+						{newPatient.Sex}
 					</Grid>
 					<Grid item xs>
-						{patient.Varsta}
+						{newPatient.Varsta}
 					</Grid>
 
 					<Grid item xs>
@@ -61,7 +61,7 @@ export const PatientBox = ({ patient, setRefresh }) => {
 				</Grid>
 				{edit ? (
 					<EditPatient
-						patient={newPatient}
+						Patient={newPatient}
 						setRefresh={setRefresh}
 						setDone={setEdit}
 						setInt={setNewPatient}

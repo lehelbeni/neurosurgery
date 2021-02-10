@@ -17,6 +17,7 @@ app.use(express.static(dir))
 mongoose.connect(process.env.API_URL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
+	useFindAndModify: false,
 })
 const connection = mongoose.connection
 connection.once('open', () => {

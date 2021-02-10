@@ -1,24 +1,55 @@
 import { Button, Grid } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DataDisplay } from '../../Subcomponents/DataDisplay'
 import { DatebaseSelector } from '../../Subcomponents/DatebaseSelector'
 import { DateSelection } from '../../Subcomponents/DateSelection'
 import { GetData } from '../../API/GetInterventionList'
+import { DataGrid } from '@material-ui/data-grid'
 
-export const DataSelection = () => {
+export const DataSelection = ({ setNewData }) => {
 	const [datebaseSelected, setDatebaseSelected] = useState('GLIAL TUMORS')
-	const [startDate, setStartDate] = useState()
-	const [endDate, setEndDate] = useState()
-	const [data, setData] = useState()
+	const [startDate, setStartDate] = useState(new Date(2000, 0, 1))
+	const [endDate, setEndDate] = useState(new Date())
+	const [data, setData] = useState([])
+	const [selectedData, setSelectedData] = useState([])
+	const header = [
+		{ field: 'id', headerName: 'ID', width: 130 },
+		{ field: 'Nume', headerName: 'Nume', width: 130 },
+		{ field: 'Prenume', headerName: 'Prenume', width: 130 },
+		{ field: 'CNP', headerName: 'CNP', width: 130 },
+		{
+			field: 'Date',
+			headerName: 'Data Interventiei',
+			width: 200,
+			type: 'Date',
+		},
+		{ field: 'Histopathology', headerName: 'Histopathologie', width: 200 },
+		{ field: 'Localisation', headerName: 'Localisation', width: 200 },
+		{ field: '', headerName: '', width: 130 },
+		{ field: '', headerName: '', width: 130 },
+	]
 
-	function handleGetData() {
-		const newData = GetData({
+	useEffect(() => {
+		handleGetData()
+	}, [])
+
+	async function handleGetData() {
+		const newData = await GetData({
 			datebaseSelected: datebaseSelected,
 			startDate: startDate,
 			endDate: endDate,
 			prop: 'Nume',
 		})
-		setData(prev => (prev = newData))
+		console.log(newData)
+		setData(prev => {
+			return newData
+		})
+		setNewData(prev => newData)
+	}
+
+	function handleSelectionChange(newSelection) {
+		console.log(newSelection)
+		setSelectedData(prev => (prev = newSelection))
 	}
 
 	return (
@@ -31,11 +62,11 @@ export const DataSelection = () => {
 			</Grid>
 
 			<Grid item xs>
-				<DateSelection setDate={setStartDate} label='Start' />
+				<DateSelection date={startDate} setDate={setStartDate} label='Start' />
 			</Grid>
 
 			<Grid item xs>
-				<DateSelection setDate={setEndDate} label='End' />
+				<DateSelection date={endDate} setDate={setEndDate} label='End' />
 			</Grid>
 
 			<Grid item xs>
@@ -43,7 +74,18 @@ export const DataSelection = () => {
 					Submit
 				</Button>
 			</Grid>
-			<DataDisplay data={{}} />
+			<Grid container style={{ height: '650px' }}>
+				<Grid item xs>
+					<DataGrid
+						rows={data ? data : [{ id: 1 }]}
+						columns={header}
+						pageSize={10}
+						checkboxSelection
+						onSelectionChange={e => handleSelectionChange(e)}
+					/>
+				</Grid>
+			</Grid>
+			{/* <DataDisplay data={data} /> */}
 		</Grid>
 	)
 }

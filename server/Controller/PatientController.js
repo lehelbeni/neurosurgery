@@ -1,5 +1,5 @@
 const Patient = require('../Model/PatientModel')
-
+const mongoose = require('mongoose')
 //Get all Patient
 exports.getAll = async (req, res) => {
 	const allPatient = await Patient.find()
@@ -37,15 +37,31 @@ exports.add = async (req, res) => {
 
 //Update user
 exports.updateUser = async (req, res) => {
-	console.log(req.body)
-	PatientUser.findOneAndUpdate({ CNP: req.params.cnp }, req.body)
+	console.log(req.params.id)
+	// await Patient.updateOne(
+	// 	{ _id: req.params.id },
+	// 	req.body,
+	// 	function (err, result) {
+	// 		if (err) {
+	// 			res.send(err)
+	// 		} else {
+	// 			res.json(result)
+	// 		}
+	// 	}
+	// )
+
+	// .exec()
+	// .then(() => res.json('Updated succesfully'))
+	// .catch(err => res.status(400).json('Error' + err))
+
+	Patient.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body })
 		.exec()
 		.then(() => res.json('Updated succesfully'))
 		.catch(err => res.status(400).json('Error' + err))
 }
 
 exports.delete = async (req, res) => {
-	const param = req.params.cnp
+	const param = req.params.id
 	Patient.findByIdAndDelete(param)
 		.exec()
 		.then(() => res.json('Deleted!'))

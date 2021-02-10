@@ -1,9 +1,8 @@
 import { GetAPI } from './GetAPI'
 
 export async function GetData({ datebaseSelected, startDate, endDate, prop }) {
-	console.log(datebaseSelected, startDate, endDate, prop)
 	const data = await GetAPI({ pathName: `/intervention/bypat` })
-	console.log(data)
+
 	const filtered = data.data.filter(el => {
 		el.Date = new Date(el.Date)
 		if (
@@ -14,12 +13,12 @@ export async function GetData({ datebaseSelected, startDate, endDate, prop }) {
 			return el
 	})
 
-	const res = orderList(filtered, prop)
+	const res = await orderList(filtered, prop)
 
 	return res
 }
 
-function orderList(array, prop) {
+async function orderList(array, prop) {
 	function dynamicSort(property) {
 		var sortOrder = 1
 		if (property[0] === '-') {

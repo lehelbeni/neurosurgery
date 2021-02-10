@@ -53,6 +53,7 @@ exports.getByPatient = async (req, res) => {
 				DatadeNastere: el.patientsbyintervention[0].DataDeNastere,
 				Sex: el.patientsbyintervention[0].Sex,
 				db: el.patientsbyintervention[0].db,
+				id: el._id,
 			}
 			delete re['patientsbyintervention']
 			return re
@@ -73,7 +74,7 @@ exports.add = async (req, res) => {
 //Update user
 exports.update = async (req, res) => {
 	if (req.body['_id']) delete req.body['_id']
-	Intervention.findByIdAndUpdate(req.params.id, req.body)
+	Intervention.findByIdAndUpdate(req.params.id, req.body, { new: true })
 		.exec()
 		.then(() => res.json('Updated succesfully'))
 		.catch(err => res.status(400).json('Error' + err))

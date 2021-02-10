@@ -5,8 +5,8 @@ import {
 import React, { useState } from 'react'
 import DateFnsUtils from '@date-io/date-fns'
 
-export const DateSelection = ({ setDate, label }) => {
-	const [selectedDate, setSelectedDate] = useState()
+export const DateSelection = ({ setDate, label, date }) => {
+	const [selectedDate, setSelectedDate] = useState(new Date(date))
 
 	const handleDateChange = date => {
 		setSelectedDate(value => (value = date))

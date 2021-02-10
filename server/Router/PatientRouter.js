@@ -10,8 +10,8 @@ PatientRouter.get('/find/:name', PatientController.getNume)
 
 PatientRouter.post('/add', PatientController.add)
 
-PatientRouter.post('/update/:cnp', PatientController.updateUser)
+PatientRouter.post('/update/:id', PatientController.updateUser)
 
-PatientRouter.delete('/:cnp', PatientController.delete)
+PatientRouter.delete('/:id', PatientController.delete)
 
 module.exports = PatientRouter
