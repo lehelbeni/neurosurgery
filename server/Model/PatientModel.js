@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 const patientSchema = mongoose.Schema(
 	{
-		_id: String,
 		db: String,
 		Nume: String,
 		Prenume: String,
@@ -11,6 +10,7 @@ const patientSchema = mongoose.Schema(
 		DataDeNastere: Date,
 		Sex: String,
 		Varsta: String,
+		Diagnostic: String,
 	},
 	{
 		timestamps: true,

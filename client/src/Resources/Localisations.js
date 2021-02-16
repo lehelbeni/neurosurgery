@@ -1,4 +1,4 @@
-export const Localisation = [
+export const Localisations = [
 	'BILATERAL',
 	'FRONTAL',
 	'PARIETAL',

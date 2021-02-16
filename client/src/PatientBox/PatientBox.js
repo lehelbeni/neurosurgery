@@ -35,13 +35,17 @@ export const PatientBox = ({ patient, setRefresh }) => {
 						{newPatient.CNP}
 					</Grid>
 					<Grid item xs>
-						{newPatient.DataDeNastere}
+						{newPatient.DataDeNastere.slice(0, 10)}
 					</Grid>
 					<Grid item xs>
 						{newPatient.Sex}
 					</Grid>
 					<Grid item xs>
 						{newPatient.Varsta}
+					</Grid>
+
+					<Grid item xs>
+						{newPatient.Diagnostic}
 					</Grid>
 
 					<Grid item xs>

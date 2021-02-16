@@ -20,11 +20,13 @@ import { PostAPI } from '../API/PostAPI'
 import { GetAPI } from '../API/GetAPI'
 import { getDisplayDate } from '@material-ui/pickers/_helpers/text-field-helper'
 import { DeleteAPI } from '../API/DeleteAPI'
+import { LocalisationSelector } from '../Subcomponents/LocalisationSelector'
 
 export const AddIntervention = ({ Patient }) => {
 	const [cnp, setCnp] = useState()
 	const [interventionList, setInterventionList] = useState([])
 	const [selectedDate, setSelectedDate] = useState(new Date())
+	const [Localisation, setLocalisation] = useState()
 	const [newIntervention, setNewIntervention] = useState({
 		db: Patient.db,
 		CNP: Patient.CNP,
@@ -32,6 +34,10 @@ export const AddIntervention = ({ Patient }) => {
 		Date: '',
 		Localisation: 'FRONTAL',
 	})
+
+	useEffect(() => {
+		console.log(Localisation)
+	}, [Localisation])
 
 	useEffect(() => {
 		setNewIntervention(values => ({ ...values, ['Date']: selectedDate }))
@@ -57,16 +63,9 @@ export const AddIntervention = ({ Patient }) => {
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-		// await setNewIntervention(value => ({
-		// 	...value,
-		// 	['Date']: selectedDate,
-		// }))
-		console.log(newIntervention)
 		await PostAPI({ pathName: `/intervention/add`, data: newIntervention })
 		GetData()
 	}
-
-	function handleEdit(id) {}
 
 	async function handleDelete(id) {
 		await DeleteAPI({ pathName: `/intervention/${id}` })
@@ -101,7 +100,7 @@ export const AddIntervention = ({ Patient }) => {
 						</FormControl>
 					</Grid>
 
-					<Grid item xs>
+					{/* <Grid item xs>
 						<FormControl>
 							<InputLabel id='localisation-select-label'>
 								Localisation
@@ -121,7 +120,12 @@ export const AddIntervention = ({ Patient }) => {
 								})}
 							</Select>
 						</FormControl>
-					</Grid>
+					</Grid> */}
+
+					<LocalisationSelector
+						localisation={Localisation}
+						setLocalisation={setLocalisation}
+					/>
 
 					<Grid item xs>
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -164,12 +168,7 @@ export const AddIntervention = ({ Patient }) => {
 										{intervention.Date.toString().slice(0, 10)}
 									</Grid>
 									<Grid item xs>
-										<Button
-											variant='contained'
-											onClick={handleEdit(intervention._id)}
-										>
-											EDIT
-										</Button>
+										<Button variant='contained'>EDIT</Button>
 									</Grid>
 
 									<Grid item xs>

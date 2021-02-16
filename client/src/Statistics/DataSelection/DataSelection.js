@@ -48,8 +48,11 @@ export const DataSelection = ({ setNewData }) => {
 	}
 
 	function handleSelectionChange(newSelection) {
-		console.log(newSelection)
 		setSelectedData(prev => (prev = newSelection))
+		const newSelectedData = newSelection.rowIds.map(id => {
+			return data.find(el => el['_id'] == id)
+		})
+		setNewData(prev => newSelectedData)
 	}
 
 	return (

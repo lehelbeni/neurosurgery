@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { DataSelection } from './DataSelection/DataSelection'
 import { PatientStats } from './PatientsStats/PatientStats'
+import { InterventionStats } from './InterventionStats/InterventionStats'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -37,7 +38,7 @@ export const Statistics = () => {
 			case 0:
 				return <DataSelection setNewData={setData} />
 			case 1:
-				return <PatientStats data={data} />
+				return <InterventionStats data={data} />
 			case 2:
 				return 'This is the bit I really care about!'
 			default:

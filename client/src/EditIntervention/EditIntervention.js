@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import DateFnsUtils from '@date-io/date-fns'
-import { Localisation } from '../Resources/Localisations'
+import { Localisations } from '../Resources/Localisations'
 import { GlialTumors } from '../Resources/GlialTumors'
 import {
 	KeyboardDatePicker,
@@ -106,7 +106,7 @@ export const EditIntervention = ({
 								value={newIntervention.Localisation}
 								onChange={handleChange('Localisation')}
 							>
-								{Localisation.map(loc => {
+								{Localisations.map(loc => {
 									return (
 										<MenuItem value={loc} key={loc}>
 											{loc}

@@ -37,24 +37,7 @@ exports.add = async (req, res) => {
 
 //Update user
 exports.updateUser = async (req, res) => {
-	console.log(req.params.id)
-	// await Patient.updateOne(
-	// 	{ _id: req.params.id },
-	// 	req.body,
-	// 	function (err, result) {
-	// 		if (err) {
-	// 			res.send(err)
-	// 		} else {
-	// 			res.json(result)
-	// 		}
-	// 	}
-	// )
-
-	// .exec()
-	// .then(() => res.json('Updated succesfully'))
-	// .catch(err => res.status(400).json('Error' + err))
-
-	Patient.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body })
+	Patient.findByIdAndUpdate(req.params.id, req.body)
 		.exec()
 		.then(() => res.json('Updated succesfully'))
 		.catch(err => res.status(400).json('Error' + err))
